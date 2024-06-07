@@ -11,10 +11,10 @@ import com.poscodx.guestbook.repository.template.JdbcContext;
 import com.poscodx.guestbook.vo.GuestbookVo;
 
 @Repository
-public class GuestbookRepositoryWithJdbcContext {
+public class GuestbookRepository {
 	private JdbcContext jdbcContext;
 	
-	public GuestbookRepositoryWithJdbcContext(JdbcContext jdbcContext) {
+	public GuestbookRepository(JdbcContext jdbcContext) {
 		this.jdbcContext = jdbcContext;
 	}
 	
