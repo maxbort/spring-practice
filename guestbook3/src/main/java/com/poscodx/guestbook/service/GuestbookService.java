@@ -1,3 +1,4 @@
+
 package com.poscodx.guestbook.service;
 
 import java.sql.Connection;
@@ -11,6 +12,7 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
@@ -38,21 +40,32 @@ public class GuestbookService {
 	}
 	
 	public void deleteContents(Long no, String password) {
-		// TX:BEGIN //////////////
-		TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+		// TX:BEGIN ///////////////////////////
+		TransactionSynchronizationManager.initSynchronization();
 
-		try {
-			guestbookLogRepository.update(no);
-			guestbookRepository.deleteByNoAndPassword(no, password);
+		TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
 		
-			// TX:END(SUCCESS) ///////
+		try {
+			GuestbookVo vo = guestbookRepository.findByNo(no);
+			System.out.println(vo);
+			if(vo == null) {
+				return;
+			}
+			
+			int count = guestbookRepository.deleteByNoAndPassword(no, password);
+			System.out.println(count);
+			if(count == 1) {
+				guestbookLogRepository.update(vo.getRegDate());
+			}
+			// TX:END(SUCCESS) ////////////////
 			transactionManager.commit(status);
 		} catch(Throwable e) {
-			// TX:END(Fail) ///////
+			// TX:END(FAIL) ///////////////////
 			transactionManager.rollback(status);
 		}
 	}
 	
+	@Transactional
 	public void addContents(GuestbookVo vo) {
 		// 트랜잭션 동기(Connection) 초기화  
 		TransactionSynchronizationManager.initSynchronization();
