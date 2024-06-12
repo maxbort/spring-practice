@@ -14,7 +14,7 @@ public class ExampleController {
 	 */
 	private static final Log LOG = LogFactory.getLog( ExampleController.class );
 	
-	@RequestMapping( "/ex1" )
+	@RequestMapping("/ex1")
 	@ResponseBody
 	public String ex1() {
 		
