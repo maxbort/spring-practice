@@ -27,6 +27,11 @@ public class DVDPlayerJavaConfigTest {
 	// 설정 클래스의 빈 생성 메소드 이름으로 Qualifier 하기
 	@Qualifier("dvdPlayer2")
 	private DVDPlayer dvdPlayer02;
+	@Autowired
+	// 같은 타입의 빈이 2개 이상 있는 경우
+	// 설정 클래스의 빈 생성 메소드 이름으로 Qualifier 하기
+	@Qualifier("dvdPlayer3")
+	private DVDPlayer dvdPlayer03;
 	
 	@Test
 	public void testDvDPlayer01NotNull() {
@@ -47,4 +52,16 @@ public class DVDPlayerJavaConfigTest {
 	public void testPlay02() {
 		assertEquals("Playing Movie Marvel's Avengers", dvdPlayer02.play());
 	}
+	
+	@Test
+	public void testDvDPlayer03NotNull() {
+		assertNotNull(dvdPlayer03);
+	}
+	
+	@Test
+	public void testPlay03() {
+		assertEquals("Playing Movie Marvel's Avengers", dvdPlayer03.play());
+	}
+	
+	
 }

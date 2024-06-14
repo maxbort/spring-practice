@@ -25,10 +25,28 @@ public class DVDPlayerConfig {
 		return new DVDPlayer(avengers());
 	}
 	// 주입(Injection)하기 2
-	// Parameter로 bean을 전달하는 방법
-	@Bean("dvdPlayer02")
+	// Parameter로 bean을 전달하는 방법 가장 많이 하는 방법
+	// 생성자 주입
+	@Bean
 	public DVDPlayer dvdPlayer2(DigitalVideoDisc dvd) {
 		return new DVDPlayer(dvd);
 	}
+	// 주입(Injection)하기 2
+	// Parameter로 bean을 전달하는 방법 가장 많이 하는 방법
+	// setter 주입
+	@Bean
+	public DVDPlayer dvdPlayer3(DigitalVideoDisc dvd) {
+		DVDPlayer dvdPlayer = new DVDPlayer();
+		dvdPlayer.setDvd(dvd);
+		
+		return dvdPlayer;
+	}
 
+//	@Bean
+//	public ViewResolver viewResolver() {
+//		InternalResourceViewResolver viewResolver = InternalResourceViewResolver();
+//		viewResolver.setViewClass(JstlView.class);
+//		viewResolver.setPrefix("/WEB-INF/views");
+//		return viewResolver;
+//	}
 }
