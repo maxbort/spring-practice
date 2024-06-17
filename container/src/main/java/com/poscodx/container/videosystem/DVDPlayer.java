@@ -4,7 +4,6 @@ public class DVDPlayer {
 	private DigitalVideoDisc dvd;
 	
 	public DVDPlayer() {
-		
 	}
 	
 	public DVDPlayer(DigitalVideoDisc dvd) {
